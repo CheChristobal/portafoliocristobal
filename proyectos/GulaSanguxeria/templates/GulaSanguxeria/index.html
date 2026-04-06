@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ nombre_local }} | Bajón Extremo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Luckiest+Guy&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    
+    <style>
+        :root { --neon-orange: #ff4d00; --neon-glow: rgba(255, 77, 0, 0.6); }
+        body { background-color: #050505; font-family: 'Inter', sans-serif; color: white; overflow-x: hidden; }
+        .font-street { font-family: 'Permanent Marker', cursive; }
+        .font-logo { font-family: 'Luckiest Guy', cursive; }
+        
+        .neon-text { color: var(--neon-orange); text-shadow: 0 0 15px var(--neon-glow); }
+        .neon-border { border: 2px solid var(--neon-orange); box-shadow: 0 0 20px var(--neon-glow); }
+        .neon-pulse { animation: neon-pulse 1.5s infinite alternate; }
+        
+        @keyframes neon-pulse {
+            0% { box-shadow: 0 0 5px var(--neon-glow); transform: scale(1); }
+            100% { box-shadow: 0 0 20px var(--neon-glow); transform: scale(1.05); }
+        }
+
+        .floating { animation: floating 3s ease-in-out infinite; }
+        @keyframes floating {
+            0%, 100% { transform: translateY(0) rotate(2deg); }
+            50% { transform: translateY(-20px) rotate(-1deg); }
+        }
+
+        .food-item { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .food-item:hover { transform: scale(1.05) translateY(-10px); background-color: #fffaf5; }
+
+        .glass-nav { background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 77, 0, 0.2); }
+        
+        #mobile-menu { transition: all 0.5s ease-in-out; transform: translateY(-100%); opacity: 0; }
+        #mobile-menu.active { transform: translateY(0); opacity: 1; }
+    </style>
+</head>
+<body class="bg-black selection:bg-orange-500 selection:text-white">
+
+    <nav class="fixed w-full z-[100] glass-nav py-4 px-6">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex flex-col group cursor-pointer" data-aos="fade-right">
+                <span class="font-logo text-4xl neon-text leading-none uppercase tracking-tighter transition-transform group-hover:scale-110">EL GULA</span>
+                <span class="text-[9px] uppercase tracking-[5px] font-black text-gray-500 uppercase">Sanguixería</span>
+            </div>
+            <div class="hidden lg:flex gap-10 items-center text-xs font-black uppercase tracking-widest italic">
+                <a href="#menu" class="hover:text-orange-500 transition-colors">La Carta</a>
+                <a href="#ubicacion" class="hover:text-orange-500 transition-colors">Ubicación</a>
+                <a href="#opiniones" class="hover:text-orange-500 transition-colors">Reseñas</a>
+                <a href="https://wa.me/{{ whatsapp }}" class="neon-border neon-pulse px-8 py-3 rounded-full text-orange-500 font-black">
+                    PIDE DELIVERY <i class="fas fa-motorcycle ml-2"></i>
+                </a>
+            </div>
+            <button id="menu-btn" class="lg:hidden text-orange-500 text-3xl transition-transform hover:rotate-90"><i class="fas fa-bars-staggered"></i></button>
+        </div>
+    </nav>
+
+    <div id="mobile-menu" class="fixed inset-0 z-[110] bg-black/95 flex flex-col items-center justify-center gap-10 text-4xl font-logo italic text-orange-500">
+        <button id="close-menu" class="absolute top-8 right-8 text-6xl">&times;</button>
+        <a href="#menu" class="mobile-link">LA CARTA</a>
+        <a href="#ubicacion" class="mobile-link">UBICACIÓN</a>
+        <a href="#opiniones" class="mobile-link">RESEÑAS</a>
+    </div>
+
+    <section class="relative min-h-screen flex items-center pt-24">
+        <div class="container mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center relative z-10">
+            <div data-aos="fade-right">
+                <h2 class="font-street text-orange-500 text-4xl md:text-6xl mb-4 -rotate-3 inline-block bg-white px-4 text-black shadow-[10px_10px_0px_#ff4d00]">¡EL MEJOR BAJÓN!</h2>
+                <h1 class="font-logo text-8xl md:text-[140px] leading-[0.8] mb-8 italic">EL GULA</h1>
+                <p class="text-gray-300 text-lg md:text-2xl mb-12 max-w-lg leading-relaxed font-light">
+                    Sanguixería urbana en el corazón de <span class="text-white font-black underline decoration-orange-500">{{ direccion }}</span>.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6">
+                    <a href="#menu" class="bg-orange-600 text-center py-6 px-12 font-black uppercase rounded-2xl shadow-[8px_8px_0px_white] hover:shadow-none hover:translate-x-2 hover:translate-y-2 transition-all text-xl">VER CARTA</a>
+                    <div class="flex items-center gap-4 px-8 py-4 border-2 border-dashed border-orange-500 rounded-2xl">
+                        <span class="flex h-4 w-4 rounded-full bg-green-500 animate-ping"></span>
+                        <span class="text-sm font-black uppercase tracking-widest text-green-400 font-black">Abierto ahora</span>
+                    </div>
+                </div>
+            </div>
+            <div class="relative flex justify-center items-center" data-aos="zoom-in" data-aos-delay="300">
+                <div class="floating relative z-20">
+                    <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=1000" 
+                         class="rounded-[60px] border-8 border-orange-500 shadow-2xl max-w-[300px] md:max-w-md">
+                </div>
+                <div class="absolute w-96 h-96 bg-orange-600/30 rounded-full blur-[120px] -z-10 animate-pulse"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="py-32 bg-white text-black rounded-t-[60px] md:rounded-t-[120px] shadow-[0_-30px_60px_rgba(255,77,0,0.2)]">
+        <div class="container mx-auto px-6 text-center">
+            <h3 class="font-logo text-7xl uppercase italic mb-20 tracking-tighter italic" data-aos="fade-up">NUESTRA <span class="text-orange-600">CARTA</span></h3>
+            
+            <div class="grid md:grid-cols-2 gap-16 text-left">
+                {% for categoria, items in menu.items() %}
+                <div data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+                    <h4 class="text-3xl font-black mb-10 border-l-[12px] border-orange-600 pl-6 uppercase italic tracking-tighter">{{ categoria }}</h4>
+                    <div class="space-y-8">
+                        {% for p in items %}
+                        <div class="food-item group flex justify-between items-center p-6 rounded-[40px] shadow-sm bg-stone-50 border border-transparent hover:border-orange-500">
+                            <div class="max-w-[70%]">
+                                <h5 class="font-black text-2xl uppercase group-hover:text-orange-600">{{ p.item }}</h5>
+                                <p class="text-sm text-gray-500 italic mt-1 font-medium">{{ p.detalle }}</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="font-logo text-3xl text-orange-600 italic underline decoration-black decoration-4 underline-offset-8 tracking-tighter">${{ p.precio }}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section id="ubicacion" class="py-32 bg-stone-100 text-black">
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-16 items-center text-left">
+            <div data-aos="fade-right">
+                <h3 class="font-logo text-6xl mb-8 italic underline decoration-orange-500 underline-offset-8">PASA A VERNOS</h3>
+                
+                <a href="{{ google_maps_link }}" target="_blank" class="flex items-start gap-6 mb-10 group cursor-pointer p-4 hover:bg-orange-50 rounded-2xl transition-all">
+                    <i class="fas fa-map-marker-alt text-5xl text-orange-600 mt-2 group-hover:bounce"></i>
+                    <div>
+                        <p class="font-black text-3xl uppercase leading-none group-hover:text-orange-600 transition-colors tracking-tighter italic">{{ direccion }}</p>
+                        <p class="text-gray-500 font-bold italic text-xl mt-1">{{ comuna }}</p>
+                    </div>
+                </a>
+
+                <p class="text-gray-600 mb-12 leading-loose font-medium italic text-xl">
+                    "Dentro de un sector donde faltaba algo así... es muy rico todo, las papas fritas excelentemente bien hechas." — Johana S.
+                </p>
+
+                <a href="{{ google_maps_link }}" target="_blank" 
+                   class="inline-block bg-black text-white px-12 py-5 font-black rounded-2xl hover:bg-orange-600 transition shadow-[10px_10px_0px_#ff4d00] hover:shadow-none hover:translate-x-2 hover:translate-y-2 text-xl uppercase tracking-widest italic">
+                    CÓMO LLEGAR <i class="fas fa-external-link-alt ml-3"></i>
+                </a>
+            </div>
+
+            <a href="{{ google_maps_link }}" target="_blank" 
+               class="h-[450px] bg-stone-300 rounded-[80px] overflow-hidden border-8 border-black relative block group shadow-2xl" data-aos="zoom-in">
+                <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=1000" class="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110">
+                <div class="absolute inset-0 bg-orange-600/20 group-hover:bg-transparent transition-colors"></div>
+                <div class="absolute bottom-8 right-8 bg-white px-6 py-3 font-black text-sm uppercase shadow-2xl">Abrir en Maps</div>
+            </a>
+        </div>
+    </section>
+
+    <section id="opiniones" class="py-32 bg-black relative">
+        <div class="container mx-auto px-6 text-center">
+            <h3 class="font-logo text-6xl text-center mb-24 neon-text uppercase tracking-widest italic" data-aos="zoom-in">VOCES DEL BARRIO</h3>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                {% for rev in testimonios %}
+                <div class="bg-stone-900/40 p-10 rounded-[50px] border border-white/10 hover:border-orange-500 transition-all shadow-xl group hover:-rotate-2 text-left" data-aos="flip-up" data-aos-delay="{{ loop.index * 150 }}">
+                    <div class="text-orange-500 mb-6 flex gap-1">
+                        {% for i in range(rev.stars) %}<i class="fas fa-star text-sm"></i>{% endfor %}
+                    </div>
+                    <p class="italic text-gray-300 text-lg leading-relaxed mb-8">"{{ rev.texto }}"</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-orange-600 rounded-full flex items-center justify-center font-black text-white text-xl">
+                            {{ rev.nombre[0] }} </div>
+                        <span class="font-black text-[11px] uppercase tracking-[3px] text-white underline decoration-orange-500">
+                            {{ rev.nombre }} </span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-24 bg-black text-center border-t-2 border-orange-500/20">
+        <div class="font-logo text-8xl text-orange-500 mb-8 italic tracking-tighter neon-pulse inline-block">EL GULA</div>
+        <p class="text-gray-500 text-sm tracking-[12px] uppercase font-black mb-12">{{ direccion }} • INDEPENDENCIA</p>
+        <div class="flex justify-center gap-12 text-3xl text-gray-500">
+            <a href="#" class="hover:text-orange-500 hover:scale-125 transition-all"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="hover:text-orange-500 hover:scale-125 transition-all"><i class="fab fa-whatsapp"></i></a>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true, easing: 'ease-out-back' });
+        const menuBtn = document.getElementById('menu-btn');
+        const closeBtn = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const links = document.querySelectorAll('.mobile-link');
+        menuBtn.addEventListener('click', () => { mobileMenu.classList.add('active'); document.body.style.overflow = 'hidden'; });
+        const closeFunc = () => { mobileMenu.classList.remove('active'); document.body.style.overflow = 'auto'; };
+        closeBtn.addEventListener('click', closeFunc);
+        links.forEach(link => link.addEventListener('click', closeFunc));
+    </script>
+</body>
+</html>
